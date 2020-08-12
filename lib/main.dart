@@ -17,7 +17,14 @@ void main() {
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  int leftDiceNum = 4;
+  int rightDiceNum = 3;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -27,21 +34,29 @@ class DicePage extends StatelessWidget {
             flex: 1,
             child: FlatButton(
                 onPressed: () {
-                  Random random = new Random();
-                  int randomNum = random.nextInt(6) + 1;
+                  setState(() {
+                    randomIntGenerator();
+                  });
                 },
-                child: Image.asset('images/dice1.png')),
+                child: Image.asset('images/dice$leftDiceNum.png')),
           ),
           Expanded(
             flex: 1,
             child: FlatButton(
                 onPressed: () {
-                  print('oh i am dank');
+                  setState(() {
+                    randomIntGenerator();
+                  });
                 },
-                child: Image.asset('images/dice6.png')),
+                child: Image.asset('images/dice$rightDiceNum.png')),
           ),
         ],
       ),
     );
+  }
+
+  void randomIntGenerator() {
+    leftDiceNum = Random().nextInt(6) + 1;
+    rightDiceNum = Random().nextInt(6) + 1;
   }
 }
